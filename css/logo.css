@@ -1,0 +1,59 @@
+:root {
+  --accent-pink: #ff6f9c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, Arial, Helvetica, sans-serif;
+  margin: 18px;
+  color: #111;
+}
+
+.card {
+  max-width: 720px;
+  margin: 28px auto;
+  padding: 18px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.hint {
+  background: var(--accent-pink);
+  color: #fff;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.count {
+  margin-top: 12px;
+  color: #222;
+  font-weight: 700;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #0b79d0;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 520px) {
+  .hint {
+    max-width: 260px;
+  }
+}

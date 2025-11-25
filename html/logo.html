@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Clue — Logo</title>
+	<link rel="stylesheet" href="../css/logo.css">
+</head>
+<body>
+	<div class="card">
+		<h1>Clue — Logo</h1>
+		<div class="hint">[Logo content — pink]</div>
+		<div class="count">Time remaining: <span id="t">10</span>s</div>
+		<a id="back" class="button" href="#">Back</a>
+	</div>
+
+	<script>
+		// 10 seconds for logo
+		const D = 10;
+		let t = D;
+		const span = document.getElementById('t');
+		const params = new URL(location.href).searchParams;
+		const team = params.get('team') || sessionStorage.getItem('team') || '';
+		document.getElementById('back').href = 'qrcode.html?team=' + team;
+
+		const iv = setInterval(()=>{
+			t--;
+			span.textContent = t;
+			if(t<=0){
+				clearInterval(iv);
+				// return to qrcode
+				location.href = 'qrcode.html?team=' + team;
+			}
+		},1000);
+	</script>
+</body>
+</html>

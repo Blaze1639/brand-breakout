@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Clue — Sound Effect</title>
+	<link rel="stylesheet" href="../css/sound-effect.css">
+</head>
+<body>
+	<div class="card">
+		<h1>Clue — Sound Effect</h1>
+		<div class="info">Listen carefully to the sound effect below (no auto-close).</div>
+
+		<!-- If you have an audio file, place it in ../img or adjust the src -->
+		<div class="audio-box">
+			<audio id="a" controls>
+				<source src="../img/sample-sound.mp3" type="audio/mpeg">
+				Your browser does not support audio.
+			</audio>
+		</div>
+
+		<a id="back" class="button" href="#">Back</a>
+	</div>
+
+	<script>
+		const params = new URL(location.href).searchParams;
+		const team = params.get('team') || sessionStorage.getItem('team') || '';
+		document.getElementById('back').href = 'qrcode.html?team=' + team;
+
+		// autoplay if allowed
+		const a = document.getElementById('a');
+		a.play().catch(()=>{/* autoplay blocked */});
+	</script>
+</body>
+</html>

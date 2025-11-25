@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Clue — Slogan</title>
+	<link rel="stylesheet" href="../css/slogan.css">
+</head>
+<body>
+	<div class="card">
+		<h1>Clue — Slogan</h1>
+		<div class="hint">[Slogan content — blue]</div>
+		<div class="count">Time remaining: <span id="t">5</span>s</div>
+		<a id="back" class="button" href="#">Back</a>
+	</div>
+
+	<script>
+		// 5 seconds for slogan
+		const D = 5;
+		let t = D;
+		const span = document.getElementById('t');
+		const params = new URL(location.href).searchParams;
+		const team = params.get('team') || sessionStorage.getItem('team') || '';
+		document.getElementById('back').href = 'qrcode.html?team=' + team;
+
+		const iv = setInterval(()=>{
+			t--;
+			span.textContent = t;
+			if(t<=0){
+				clearInterval(iv);
+				location.href = 'qrcode.html?team=' + team;
+			}
+		},1000);
+	</script>
+</body>
+</html>

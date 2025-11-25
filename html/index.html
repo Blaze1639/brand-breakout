@@ -4,8 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-    
+    <h1>Brand Breakout <br> Choose your team</h1>
+    <div class="teams">
+        <div class="team" onclick="join(1)">
+            <strong>Team 1</strong>
+
+            <button type="button">Join</button>
+        </div>
+        <div class="team" onclick="join(2)">
+            <strong>Team 2</strong>
+
+            <button type="button">Join</button>
+        </div>
+        <div class="team" onclick="join(3)">
+            <strong>Team 3</strong>
+
+            <button type="button">Join</button>
+        </div>
+        <div class="team" onclick="join(4)">
+            <strong>Team 4</strong>
+
+            <button type="button">Join</button>
+        </div>
+    </div>
+
+    <script>
+        function join(n){
+            sessionStorage.setItem('team', n);
+            window.location.href = 'qrcode.html?team=' + n;
+        }
+    </script>
 </body>
 </html>

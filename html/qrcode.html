@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>QR Code / Clues</title>
+	<link rel="stylesheet" href="../css/qrcode.css">
+</head>
+<body>
+	<div class="center">
+		<h1>Team <span id="teamName">—</span> </h1>
+
+		<div class="buttons">
+			<button class="clue-box logo" onclick="openClue('logo')">Logo</button>
+			<button class="clue-box sound" onclick="openClue('sound-effect')">Sound<br>Effect </button>
+			<button class="clue-box slogan" onclick="openClue('slogan')">Slogan</button>
+			<button class="clue-box colorlab" onclick="openClue('the-color-lab')">The Color Lab </button>
+		</div>
+
+	</div>
+
+	<script>
+		function getParam(name){
+			const u = new URL(location.href);
+			return u.searchParams.get(name) || sessionStorage.getItem('team') || '—';
+		}
+
+		document.getElementById('teamName').textContent = getParam('team');
+
+		function openClue(slug){
+			const team = getParam('team');
+			window.location.href = slug + '.html?team=' + team;
+		}
+	</script>
+</body>
+</html>
