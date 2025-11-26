@@ -15,7 +15,6 @@
 	</div>
 
 	<script>
-		// 10 seconds for logo
 		const D = 10;
 		let t = D;
 		const span = document.getElementById('t');
@@ -28,7 +27,6 @@
 			span.textContent = t;
 			if(t<=0){
 				clearInterval(iv);
-				// return to qrcode
 				location.href = 'qrcode.html?team=' + team;
 			}
 		},1000);
