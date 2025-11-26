@@ -5,16 +5,25 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<title>QR Code / Clues</title>
 	<link rel="stylesheet" href="../css/qrcode.css">
+	<style>
+		.clue-box.used{ opacity:0.45; cursor:not-allowed; }
+		.clue-box[disabled]{ pointer-events:none; }
+	</style>
 </head>
 <body>
 	<div class="center">
-		<h1>Team <span id="teamName">—</span> </h1>
+		<h1>Team <span id="teamName">—</span> Guess the brand </h1>
 
 		<div class="buttons">
-			<button class="clue-box logo" onclick="openClue('logo')">Logo</button>
-			<button class="clue-box sound" onclick="openClue('sound-effect')">Sound<br>Effect </button>
-			<button class="clue-box slogan" onclick="openClue('slogan')">Slogan</button>
-			<button class="clue-box colorlab" onclick="openClue('the-color-lab')">The Color Lab </button>
+			<button class="clue-box logo" data-slug="logo" onclick="openClue('logo')">Logo</button>
+			<button class="clue-box sound" data-slug="sound-effect" onclick="openClue('sound-effect')">Sound<br>Effect </button>
+			<button class="clue-box slogan" data-slug="slogan" onclick="openClue('slogan')">Slogan</button>
+			<button class="clue-box colorlab" data-slug="the-color-lab" onclick="openClue('the-color-lab')">The Color Lab </button>
+		</div>
+
+		<div style="text-align:center; margin-top:18px;">
+			<input id="brandInput" placeholder="Your answer" style="padding:8px 12px; font-size:1em; width:200px; border-radius:6px; border:1px solid #ccc;" />
+			<button id="submitAnswer" disabled style="padding:8px 12px; font-size:1em; margin-left:8px; border-radius:6px; cursor:pointer;" onclick="submitAnswer()">Submit</button>
 		</div>
 
 		<div style="text-align: center; margin-top: 30px;">
@@ -26,6 +35,8 @@
 	
 
 	<script>
+		const CLUE_SLUGS = ['logo','sound-effect','slogan','the-color-lab'];
+
 		function getParam(name){
 			const u = new URL(location.href);
 			return u.searchParams.get(name) || sessionStorage.getItem('team') || '—';
@@ -33,10 +44,62 @@
 
 		document.getElementById('teamName').textContent = getParam('team');
 
+		function getStorageKey(team){
+			return `brand-breakout:${team}:clues`;
+		}
+
 		function openClue(slug){
 			const team = getParam('team');
+			const key = getStorageKey(team);
+			const state = JSON.parse(localStorage.getItem(key) || '{}');
+			if(!state[slug]){
+				state[slug] = true;
+				localStorage.setItem(key, JSON.stringify(state));
+			}
 			window.location.href = slug + '.html?team=' + team;
 		}
+
+		function applyUsedStyles(){
+			const team = getParam('team');
+			const key = getStorageKey(team);
+			const state = JSON.parse(localStorage.getItem(key) || '{}');
+			const buttons = document.querySelectorAll('.clue-box');
+			buttons.forEach(btn => {
+				const slug = btn.dataset.slug;
+				if(state[slug]){
+					btn.classList.add('used');
+					btn.disabled = true;
+				} else {
+					btn.classList.remove('used');
+					btn.disabled = false;
+				}
+			});
+			updateSubmitAndReveal();
+		}
+
+		function updateSubmitAndReveal(){
+			const team = getParam('team');
+			const key = getStorageKey(team);
+			const state = JSON.parse(localStorage.getItem(key) || '{}');
+			const allUsed = CLUE_SLUGS.every(s => state[s]);
+			document.getElementById('submitAnswer').disabled = !allUsed;
+		}
+
+		function submitAnswer(){
+			const team = getParam('team');
+			const answer = document.getElementById('brandInput').value.trim().toLowerCase();
+			if(!answer){ alert('Veuillez entrer une réponse.'); return; }
+			if(answer === 'nike'){
+				alert('Correct — the mystery brand is Nike!');
+				localStorage.setItem(`brand-breakout:${team}:solved`, 'true');
+			} else {
+				alert('Incorrect — try again.');
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			applyUsedStyles();
+		});
 	</script>
 </body>
 </html>
