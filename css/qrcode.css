@@ -26,6 +26,17 @@ h1 {
   
 }
 
+.button {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+
 .buttons {
   display: grid;
   grid-template-columns: repeat(2, minmax(120px, 1fr));
