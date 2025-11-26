@@ -11,26 +11,34 @@
 body {
   font-family: system-ui, Arial, Helvetica, sans-serif;
   margin: 18px;
-  background: #fff;
   color: #111;
   display: flex;
   flex-direction: column;
   align-items: center;
-    gap: 70px;
+  gap: 70px;
+
 }
 
 h1 {
   text-align: center;
-  margin: 6px 0;
+  margin: 20px 0;
+  font-size: 2.5em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #FF6B6B 0%,  #FFE66D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+  line-height: 1.3;
 }
 
 .teams {
   display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  grid-template-columns: repeat(2, minmax(160px, 1fr));
   gap: var(--gap);
   justify-items: center;
   margin-top: 18px;
-  max-width: 520px;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
   padding: 6px;
@@ -38,9 +46,9 @@ h1 {
 
 .team {
   width: 100%;
-  max-width: 220px;
+  max-width: 280px;
   aspect-ratio: 1 / 1;
-  padding: 12px;
+  padding: 24px;
   border-radius: 8px;
   border: 1px solid #e6e6e6;
   text-align: center;
@@ -71,6 +79,42 @@ h1 {
   background: var(--accent);
   color: #fff;
   cursor: pointer;
+}
+
+.team:nth-child(1) {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 100%);
+  border-color: #FF6B6B;
+}
+
+.team:nth-child(1) strong {
+  color: #fff;
+}
+
+.team:nth-child(2) {
+  background: linear-gradient(135deg, #00ff73 0%, #44A08D 100%);
+  border-color: #4ECDC4;
+}
+
+.team:nth-child(2) strong {
+  color: #fff;
+}
+
+.team:nth-child(3) {
+  background: linear-gradient(135deg, #FFE66D 0%, #FFC93C 100%);
+  border-color: #FFE66D;
+}
+
+.team:nth-child(3) strong {
+  color: #ffffff;
+}
+
+.team:nth-child(4) {
+  background: linear-gradient(135deg, #95E1D3 0%, #38ADA9 100%);
+  border-color: #95E1D3;
+}
+
+.team:nth-child(4) strong {
+  color: #fff;
 }
 
 @media (max-width: 360px) {
