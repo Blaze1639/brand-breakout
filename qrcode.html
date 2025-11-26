@@ -32,6 +32,7 @@
 
 		<div style="text-align: center; margin-top: 30px;">
 			<button onclick="window.location.href='index.html'" style="padding: 12px 24px; background: #666; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 600;">← Back to Teams</button>
+			<button onclick="resetData()" style="padding: 12px 24px; background: #e74c3c; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 600; margin-left: 12px;">Reset</button>
 		</div>
 
 	</div>
@@ -98,6 +99,14 @@
 				localStorage.setItem(`brand-breakout:${team}:solved`, 'true');
 			} else {
 				alert('Incorrect — try again.');
+			}
+		}
+
+		function resetData(){
+			if(confirm('Are you sure you want to reset all data?')){
+				localStorage.clear();
+				sessionStorage.clear();
+				location.reload();
 			}
 		}
 
