@@ -20,6 +20,14 @@ body {
   background: #fff;
 }
 
+.color-box{
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  margin: 10px;
+  display: inline-block;
+}
+
 .hint {
   background: var(--accent-yellow);
   color: #222;
