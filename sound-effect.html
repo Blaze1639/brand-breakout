@@ -1,34 +1,45 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Clue — Sound Effect</title>
-	<link rel="stylesheet" href="../css/sound-effect.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Clue — Sound Effect</title>
+    <link rel="stylesheet" href="../css/sound-effect.css">
 </head>
 <body>
-	<div class="card">
-		<h1>Clue — Sound Effect</h1>
+    <div class="card">
+        <h1>Clue — Sound Effect</h1>
 
-		<div class="info">
-			<div class="audio-box">
-				<audio id="a" controls>
-					<source src="pub.mp3" type="audio/mpeg">
-				</audio>
-			</div>
+        <div class="info">
+            <div class="audio-box">
+                <audio id="a" controls>
+                    <source id="audioSource" src="" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+        <a id="back" class="button" href="#">Back</a>
+    </div>
 
-		</div>
-		<a id="back" class="button" href="#">Back</a>
-
-	</div>
-
-	<script>
-		const params = new URL(location.href).searchParams;
-		const team = params.get('team') || sessionStorage.getItem('team') || '';
-		document.getElementById('back').href = 'qrcode.html?team=' + team;
-
-		const a = document.getElementById('a');
-		a.play().catch(()=>{});
-	</script>
+    <script>
+        const params = new URL(location.href).searchParams;
+        const team = params.get('team') || sessionStorage.getItem('team') || '1';
+        
+        // Configuration des pubs audio par équipe
+        const teamAudio = {
+            '1': 'music/pub1.mp3',  // Nike
+            '2': 'music/pub2.mp3',  // Gucci
+            '3': 'music/pub3.mp3',  // Ubisoft
+            '4': 'music/pub4.mp3'   // Amazon
+        };
+        
+        document.getElementById('back').href = 'qrcode.html?team=' + team;
+        
+        const audioSource = document.getElementById('audioSource');
+        const a = document.getElementById('a');
+        
+        audioSource.src = teamAudio[team] || 'music/pub.mp3';
+        a.load();
+        a.play().catch(()=>{});
+    </script>
 </body>
 </html>

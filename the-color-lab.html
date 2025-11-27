@@ -1,42 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Clue — The Color Lab</title>
-	<link rel="stylesheet" href="../css/the-color-lab.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Clue — The Color Lab</title>
+    <link rel="stylesheet" href="../css/the-color-lab.css">
 </head>
 <body>
-	<div class="card">
-		<h1>Clue — The Color Lab</h1>
-		<div class="hint"> 
+    <div class="card">
+        <h1>Clue — The Color Lab</h1>
+        <div class="hint" id="colorHint"></div>
+        <div class="count">Time remaining: <span id="t">10</span>s</div>
+        <a id="back" class="button" href="#">Back</a>
+    </div>
 
-			<div class="color-box" style="background-color: #ED3626;"></div>
-			<div class="color-box" style="background-color: #ffffff;"></div>
-			<div class="color-box" style="background-color: #000000;"></div>
+    <script>
+        const D = 10;
+        let t = D;
+        const span = document.getElementById('t');
+        const params = new URL(location.href).searchParams;
+        const team = params.get('team') || sessionStorage.getItem('team') || '1';
+        
+        const teamColors = {
+            '1': ['#ED3626', '#ffffff', '#000000'],  // Nike - Rouge, Blanc, Noir
+            '2': ['#00693E', '#FFD700', '#FFFFFF'],  // Gucci - Vert, Or, Blanc
+            '3': ['#0055A5', '#FFFFFF', '#000000'],  // Ubisoft - Bleu, Blanc, Noir
+            '4': ['#FF9900', '#146EB4', '#000000']   // Amazon - Orange, Bleu, Noir
+        };
+        
+        const colorHint = document.getElementById('colorHint');
+        const colors = teamColors[team];
+        
+        colors.forEach(color => {
+            const colorBox = document.createElement('div');
+            colorBox.className = 'color-box';
+            colorBox.style.backgroundColor = color;
+            colorHint.appendChild(colorBox);
+        });
+        
+        document.getElementById('back').href = 'qrcode.html?team=' + team;
 
-		</div>
-		<div class="count">Time remaining: <span id="t">10</span>s</div>
-		<a id="back" class="button" href="#">Back</a>
-
-	</div>
-
-	<script>
-		const D = 10;
-		let t = D;
-		const span = document.getElementById('t');
-		const params = new URL(location.href).searchParams;
-		const team = params.get('team') || sessionStorage.getItem('team') || '';
-		document.getElementById('back').href = 'qrcode.html?team=' + team;
-
-		const iv = setInterval(()=>{
-			t--;
-			span.textContent = t;
-			if(t<=0){
-				clearInterval(iv);
-				location.href = 'qrcode.html?team=' + team;
-			}
-		},1000);
-	</script>
+        const iv = setInterval(()=>{
+            t--;
+            span.textContent = t;
+            if(t<=0){
+                clearInterval(iv);
+                location.href = 'qrcode.html?team=' + team;
+            }
+        },1000);
+    </script>
 </body>
 </html>
